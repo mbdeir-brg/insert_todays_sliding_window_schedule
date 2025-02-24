@@ -1,10 +1,9 @@
-using System;
 using Microsoft.Data.SqlClient;
 using Microsoft.Azure.Functions.Worker;
 using BRG.Helen.Backend.Core;
 using Dapper;
 using System.Data;
-using BRG.Helen.Cloud.Logging;   
+using BRG.Helen.Cloud.Logging;
 namespace insert_todays_sliding_window_schedule;
 
 public class InsertTowerSchedule
@@ -14,6 +13,9 @@ public class InsertTowerSchedule
     {
 
         string connectionString = Environment.GetEnvironmentVariable("connectionstring");
+
+        string slack_app_id = Environment.GetEnvironmentVariable("slack_app_id");
+        string slack_channel_id = Environment.GetEnvironmentVariable("slack_channel_id");
 
         if (string.IsNullOrWhiteSpace(connectionString))
         {
@@ -25,9 +27,8 @@ public class InsertTowerSchedule
             using var connection = new SqlConnection(connectionString);
             await connection.OpenAsync();
 
-             connection.Execute("linens.spInsertTodaysTowerSlidingWindowSchedule",
-                commandType: CommandType.StoredProcedure);
-            SlackLogger.SendMessage("T06CDEQREBH", "B08FDSJ1U6L/xK99PnW50fDcsA0oMdqtIu3k", "insert_tower_schedule has been executed successfully");
+             connection.Execute("linens.spInsertTodaysTowerSlidingWindowSchedule",commandType: CommandType.StoredProcedure);
+            SlackLogger.SendMessage(slack_app_id, slack_channel_id, "insert_tower_schedule has been executed successfully");
             return Utils.OK();
         }
         catch (Exception ex)
