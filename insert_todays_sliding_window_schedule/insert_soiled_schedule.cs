@@ -10,14 +10,6 @@ public class InsertSoiledSchedule
     [Function("insert_soiled_schedule")]
     public object Run([TimerTrigger("0 9 * * *")] TimerInfo myTimer)
     {
-        // Get current time in UTC
-        DateTime utcNow = DateTime.UtcNow;
-
-        // Ensure function runs only at 9:00 AM UTC (Prevent execution outside this window)
-        if (utcNow.Hour != 9 || utcNow.Minute != 0)
-        {
-            return Utils.Error("The current time should be 4 am EST for it to run"); // Exit function without executing
-        }
 
         string connectionString = Environment.GetEnvironmentVariable("connectionstring");
 
