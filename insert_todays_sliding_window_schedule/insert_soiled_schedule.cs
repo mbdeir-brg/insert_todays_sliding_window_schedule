@@ -15,8 +15,8 @@ public class InsertSoiledSchedule
     public async Task<object> Run([TimerTrigger("0 0 9 * * *")] TimerInfo myTimer)
     {
         string connectionString = Environment.GetEnvironmentVariable("connectionstring");
-        string appId = Environment.GetEnvironmentVariable("appId");
-        string channelId = Environment.GetEnvironmentVariable("channelId");
+        string slack_app_id = Environment.GetEnvironmentVariable("appId");
+        string slack_channel_id = Environment.GetEnvironmentVariable("channelId");
         if (string.IsNullOrWhiteSpace(connectionString))
         {
             return Utils.Error("connection string is not valid");

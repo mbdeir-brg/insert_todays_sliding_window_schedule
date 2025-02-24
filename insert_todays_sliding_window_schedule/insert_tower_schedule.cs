@@ -14,8 +14,8 @@ public class InsertTowerSchedule
     {
 
         string connectionString = Environment.GetEnvironmentVariable("connectionstring");
-        string appId = Environment.GetEnvironmentVariable("appId");
-        string channelId = Environment.GetEnvironmentVariable("channelId");
+        string slack_app_id = Environment.GetEnvironmentVariable("slack_app_id");
+        string slack_channel_id = Environment.GetEnvironmentVariable("slack_channel_id");
 
         if (string.IsNullOrWhiteSpace(connectionString))
         {
