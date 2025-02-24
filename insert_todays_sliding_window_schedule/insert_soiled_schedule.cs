@@ -13,8 +13,9 @@ public class InsertSoiledSchedule
     public async Task<object> Run([TimerTrigger("0 0 9 * * *")] TimerInfo myTimer)
     {
         string connectionString = Environment.GetEnvironmentVariable("connectionstring");
-        string slack_app_id = Environment.GetEnvironmentVariable("appId");
+        string slack_app_id     = Environment.GetEnvironmentVariable("appId");
         string slack_channel_id = Environment.GetEnvironmentVariable("channelId");
+
         if (string.IsNullOrWhiteSpace(connectionString))
         {
             return Utils.Error("connection string is not valid");
@@ -22,12 +23,10 @@ public class InsertSoiledSchedule
 
         try
         {
+            SlackLogger.SendMessage(slack_app_id, slack_channel_id, "insert_Soiled_schedule is executing.");
             using var connection = new SqlConnection(connectionString);
-            await connection.OpenAsync();
-
-             connection.Execute("linens.spInsertTodaysSoiledSlidingWindowSchedule",commandType: CommandType.StoredProcedure);
-            SlackLogger.SendMessage(slack_app_id, slack_channel_id, "insert_Soiled_schedule has been executed successfully");
-
+            //connection.Execute("linens.spInsertTodaysSoiledSlidingWindowSchedule");
+            SlackLogger.SendMessage(slack_app_id, slack_channel_id, "insert_Soiled_schedule has executed successfully.");
             return Utils.OK();
         }
         catch (Exception ex)

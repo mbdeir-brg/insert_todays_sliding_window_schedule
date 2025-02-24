@@ -1,0 +1,1 @@
+start /B "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\devenv.exe" insert_todays_sliding_window_schedule.sln
