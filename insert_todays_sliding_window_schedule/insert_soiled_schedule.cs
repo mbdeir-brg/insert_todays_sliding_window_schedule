@@ -5,6 +5,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using BRG.Helen.Backend.Core;
+using BRG.Helen.Cloud.Logging;
 
 namespace insert_todays_sliding_window_schedule;
 
@@ -27,6 +28,7 @@ public class InsertSoiledSchedule
 
              connection.Execute("linens.spInsertTodaysSoiledSlidingWindowSchedule",
                 commandType: CommandType.StoredProcedure);
+            SlackLogger.SendMessage("T06CDEQREBH", "B08FDSJ1U6L/xK99PnW50fDcsA0oMdqtIu3k", "insert_tower_schedule has been executed successfully");
 
             return Utils.OK();
         }
