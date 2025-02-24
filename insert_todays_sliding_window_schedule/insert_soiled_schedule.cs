@@ -27,9 +27,8 @@ public class InsertSoiledSchedule
             using var connection = new SqlConnection(connectionString);
             await connection.OpenAsync();
 
-             connection.Execute("linens.spInsertTodaysSoiledSlidingWindowSchedule",
-                commandType: CommandType.StoredProcedure);
-            SlackLogger.SendMessage(appId, channelId, "insert_tower_schedule has been executed successfully");
+             connection.Execute("linens.spInsertTodaysSoiledSlidingWindowSchedule",commandType: CommandType.StoredProcedure);
+            SlackLogger.SendMessage(appId, channelId, "insert_Soiled_schedule has been executed successfully");
 
             return Utils.OK();
         }
