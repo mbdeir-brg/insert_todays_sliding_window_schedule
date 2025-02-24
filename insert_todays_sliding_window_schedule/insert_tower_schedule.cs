@@ -2,13 +2,15 @@ using System;
 using Microsoft.Data.SqlClient;
 using Microsoft.Azure.Functions.Worker;
 using BRG.Helen.Backend.Core;
+using Dapper;
+using System.Data;
 
 namespace insert_todays_sliding_window_schedule;
 
 public class InsertTowerSchedule
 {
     [Function("insert_tower_schedule")]
-    public object Run([TimerTrigger("0 9 * * *")] TimerInfo myTimer)
+    public async Task<object> Run([TimerTrigger("0 0 9 * * *")] TimerInfo myTimer)
     {
 
         string connectionString = Environment.GetEnvironmentVariable("connectionstring");
@@ -20,16 +22,11 @@ public class InsertTowerSchedule
 
         try
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
+            using var connection = new SqlConnection(connectionString);
+            await connection.OpenAsync();
 
-                using (SqlCommand command = new SqlCommand("linens.spInsertTodaysTowerSlidingWindowSchedule", connection))
-                {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.ExecuteNonQuery();
-                }
-            }
+             connection.Execute("linens.spInsertTodaysTowerSlidingWindowSchedule",
+                commandType: CommandType.StoredProcedure);
 
             return Utils.OK();
         }
