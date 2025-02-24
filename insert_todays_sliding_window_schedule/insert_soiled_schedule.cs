@@ -1,6 +1,4 @@
-using System;
 using System.Data;
-using System.Threading.Tasks;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Data.SqlClient;
 using Dapper;
@@ -28,7 +26,7 @@ public class InsertSoiledSchedule
             await connection.OpenAsync();
 
              connection.Execute("linens.spInsertTodaysSoiledSlidingWindowSchedule",commandType: CommandType.StoredProcedure);
-            SlackLogger.SendMessage(appId, channelId, "insert_Soiled_schedule has been executed successfully");
+            SlackLogger.SendMessage(slack_app_id, slack_channel_id, "insert_Soiled_schedule has been executed successfully");
 
             return Utils.OK();
         }
