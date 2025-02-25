@@ -21,8 +21,17 @@
     <Reference Include="BRG.Helen.Backend.Core">
       <HintPath>H:\BRG.Helen.Backend.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Credentials">
+      <HintPath>H:\Firebase.Credentials.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TeamHelen">
+      <HintPath>H:\Firebase.TeamHelen.dll</HintPath>
+    </Reference>
     <Reference Include="Helen.Cloud.v8">
       <HintPath>H:\Helen.Cloud.v8.dll</HintPath>
+    </Reference>
+    <Reference Include="Helen.Firebase">
+      <HintPath>H:\Helen.Firebase.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
